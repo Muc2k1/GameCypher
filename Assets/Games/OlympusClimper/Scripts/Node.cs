@@ -19,6 +19,8 @@ namespace OlympusClimper
             New,
             Old
         }
+        [SerializeField] private Color oldColor;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         private eNodeType type;
         private eNodeState state = eNodeState.New;
         private void OnTriggerEnter2D(Collider2D col)
@@ -29,8 +31,15 @@ namespace OlympusClimper
             if (col.gameObject.CompareTag("Player"))
             {
                 OCGameManager.ON_PLAYER_UPDATE_POSITION?.Invoke(this);
-                this.state = eNodeState.Old;
+                SetState(eNodeState.Old);
             }
+        }
+        private void SetState(eNodeState newState)
+        {
+            this.state = newState;
+
+            if (this.state == eNodeState.Old)
+                this.spriteRenderer.color = this.oldColor;
         }
 
 
