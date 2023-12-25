@@ -21,8 +21,8 @@ namespace OlympusClimper
         }
         [SerializeField] private Color oldColor;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private eNodeState state = eNodeState.New;
         private eNodeType type;
-        private eNodeState state = eNodeState.New;
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (this.state != eNodeState.New)
@@ -40,6 +40,10 @@ namespace OlympusClimper
 
             if (this.state == eNodeState.Old)
                 this.spriteRenderer.color = this.oldColor;
+        }
+        private void SetRandomPosition()
+        {
+
         }
 
 
