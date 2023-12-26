@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using DG.Tweening;
+
 namespace OlympusClimper
 {
     public class OCGameManager : MonoBehaviour
@@ -14,9 +16,6 @@ namespace OlympusClimper
             Pausing
         }
         public static OCGameManager Instance;
-        public static Action<Node /*Step*/> ON_PLAYER_UPDATE_POSITION;
-        public static Action<Node /*Step*/> ON_PLAYER_LATE_UPDATE_POSITION;
-        public static Action<float /*Height*/> ON_START_MOVE_DOWN;
         [SerializeField] private PlayerController player;
         public PlayerController Player => this.player;
         private void Awake()
@@ -24,14 +23,30 @@ namespace OlympusClimper
             if (Instance == null)
                 Instance = this;
         }
+        private void Start()
+        {
+            OCEvent.ON_START_MOVE_DOWN += OnStartMoveDown;
+        }
         private void OnDestroy()
         {
             if (Instance == this)
                 Instance = null;
+
+            OCEvent.ON_START_MOVE_DOWN -= OnStartMoveDown;
+        }
+        private void OnStartMoveDown(float _)
+        {
+            Debug.Log("Down");
+            DOVirtual.DelayedCall(1.2f, () =>
+            {
+                OCEvent.ON_MOVE_DOWN_FINISH?.Invoke();
+                Debug.Log("Down finished");
+            }
+            );
         }
         private void OnPlayerUpdatePosition()
         {
-            
-        } 
+
+        }
     }
 }

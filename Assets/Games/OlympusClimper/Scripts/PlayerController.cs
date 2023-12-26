@@ -25,11 +25,11 @@ namespace OlympusClimper
 
         private float flyTimeCounter;
         private eCharacterState state = eCharacterState.Idling;
-        public Node CurrentNode {get; private set;}
+        public Node CurrentNode;
         private Vector3 rotationDir => (this.forward.position - this.transform.position).normalized;
         private void Start()
         {
-            OCGameManager.ON_PLAYER_LATE_UPDATE_POSITION += OnUpdatePosition;
+            OCEvent.ON_PLAYER_LATE_UPDATE_POSITION += OnUpdatePosition;
         }
         private void Update()
         {
@@ -38,7 +38,7 @@ namespace OlympusClimper
         }
         private void OnDestroy()
         {
-            OCGameManager.ON_PLAYER_LATE_UPDATE_POSITION -= OnUpdatePosition;
+            OCEvent.ON_PLAYER_LATE_UPDATE_POSITION -= OnUpdatePosition;
         }
         private void StateCheck()
         {
@@ -66,7 +66,7 @@ namespace OlympusClimper
                 return;
             
             PlayPunchAnim();
-            CurrentNode?.PlayPunchAnim();
+            CurrentNode?.BackToPool();
             SetState(eCharacterState.Flying);
             this.destination.SetActive(false);
             this.flyTimeCounter = this.flyCoolDown;
@@ -85,9 +85,6 @@ namespace OlympusClimper
             {
                 StartFly();
             }
-        }
-        private void UpdateCurrentNode()
-        {
         }
         private void RotateFlyDir()
         {

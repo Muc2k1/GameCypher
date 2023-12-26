@@ -10,7 +10,7 @@ namespace OlympusClimper
         [SerializeField] private float moveTime = 1f;
         private void Start()
         {
-            OCGameManager.ON_START_MOVE_DOWN += VerticalMove;
+            OCEvent.ON_START_MOVE_DOWN += VerticalMove;
         }
         private void Update()
         {
@@ -18,7 +18,7 @@ namespace OlympusClimper
         }
         private void OnDestroy()
         {
-            OCGameManager.ON_START_MOVE_DOWN -= VerticalMove;
+            OCEvent.ON_START_MOVE_DOWN -= VerticalMove;
         }
         private void VerticalMove(float height)
         {

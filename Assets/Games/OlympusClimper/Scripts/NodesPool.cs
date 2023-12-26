@@ -10,18 +10,18 @@ namespace OlympusClimper
         [SerializeField] private List<Node> nodes;
         private void Start()
         {
-            OCGameManager.ON_PLAYER_UPDATE_POSITION += OnPlayerChangePosition;
+            OCEvent.ON_PLAYER_UPDATE_POSITION += OnPlayerChangePosition;
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                UpdateQueue();
-            }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     UpdateQueue();
+            // }
         }
         private void OnDestroy()
         {
-            OCGameManager.ON_PLAYER_UPDATE_POSITION -= OnPlayerChangePosition;
+            OCEvent.ON_PLAYER_UPDATE_POSITION -= OnPlayerChangePosition;
         }
         private void OnPlayerChangePosition(Node newNode)
         {
@@ -29,12 +29,19 @@ namespace OlympusClimper
             if (currentPlayer == null)
                 return;
             Node currentNode = currentPlayer.CurrentNode == null ? nodes[0] : currentPlayer.CurrentNode;
-            float flyHeight = newNode.transform.position.y - currentNode.transform.position.y;
-            Debug.Log(newNode.transform.position.x + " - " + newNode.transform.position.y);
-            Debug.Log(currentNode.transform.position.x + " - " + currentNode.transform.position.y);
-            OCGameManager.ON_START_MOVE_DOWN?.Invoke(flyHeight);
-            OCGameManager.ON_PLAYER_LATE_UPDATE_POSITION?.Invoke(newNode);
-            Debug.Log(flyHeight);
+            float flyHeight = newNode.transform.position.y - currentNode.transform.position.y; //3.5f / 1 step
+            OCEvent.ON_PLAYER_LATE_UPDATE_POSITION?.Invoke(newNode);
+            OCEvent.ON_START_MOVE_DOWN?.Invoke(flyHeight);
+        }
+        public Node GetTheHighestNode()
+        {
+            Node result = nodes[0];
+            foreach (Node node in nodes)
+            {
+                if (result.transform.position.y < node.transform.position.y)
+                    result = node;
+            }
+            return result;
         }
         private void UpdateQueue()
         {
@@ -44,6 +51,10 @@ namespace OlympusClimper
                 nodes[i] = nodes[i - 1];
             }
             nodes[0] = temp;
+        }
+        public void BackToPool(Node currentNode)
+        {
+            
         }
     }
 }
