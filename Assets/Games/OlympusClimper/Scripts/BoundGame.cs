@@ -30,7 +30,6 @@ public class BoundGame : MonoBehaviour
     }
     private void UpdateNodes()
     {
-        Debug.Log("Calling");
         foreach (Node node in choosenNodes)
         {
             node.SetRandomPosition();

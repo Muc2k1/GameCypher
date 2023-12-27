@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.UIElements;
-using DG.Tweening;
 
 namespace OlympusClimper
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Moveable
     {
         private enum eCharacterState
         {
@@ -16,29 +11,40 @@ namespace OlympusClimper
             Flying,
             Landing
         }
-        [SerializeField] private float flySpeed;
-        [SerializeField] private float rotateSpeed;
         [SerializeField] private Transform display;
         [SerializeField] private GameObject destination;
         [SerializeField] private Transform forward;
         [SerializeField] private float flyCoolDown;
 
-        private float flyTimeCounter;
-        private eCharacterState state = eCharacterState.Idling;
         public Node CurrentNode;
+        private float flySpeed;
+        private float rotateSpeed;
+        private float flyTimeCounter;
+        private Vector3 rotateVector;
+        private eCharacterState state = eCharacterState.Idling;
         private Vector3 rotationDir => (this.forward.position - this.transform.position).normalized;
-        private void Start()
+        protected override void Start()
         {
             OCEvent.ON_PLAYER_LATE_UPDATE_POSITION += OnUpdatePosition;
+            base.Start();
         }
         private void Update()
         {
             StateCheck();
             BehaviourCheck();
         }
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             OCEvent.ON_PLAYER_LATE_UPDATE_POSITION -= OnUpdatePosition;
+            base.OnDestroy();
+        }
+        protected override void Setup()
+        {
+            base.Setup();
+            OCBalancer config = OCGameManager.Instance.GameConfig;
+            this.flySpeed = config.FlySpeed;
+            this.rotateSpeed = config.RotateSpeed;
+            this.rotateVector = new Vector3(0f, 0f, 1f * this.rotateSpeed);
         }
         private void StateCheck()
         {
@@ -88,7 +94,7 @@ namespace OlympusClimper
         }
         private void RotateFlyDir()
         {
-            this.display.Rotate(new Vector3(0f, 0f, 1f * this.rotateSpeed));
+            this.display.Rotate(rotateVector);
 
             if (this.flyTimeCounter > 0)
                 this.flyTimeCounter -= Time.deltaTime;
@@ -101,21 +107,6 @@ namespace OlympusClimper
             this.destination.SetActive(true);
             this.CurrentNode = newNode;
             this.transform.position = newNode.transform.position;
-        }
-
-
-
-
-
-
-        //Animation
-        private Tweener punchTween; 
-        private void PlayPunchAnim()
-        {
-            if (this.punchTween != null)
-                this.punchTween.Kill();
-
-            this.punchTween = this.transform.DOPunchScale(Vector3.one * 0.1f, 0.2f, 2, 0.5f);
         }
     }
 }

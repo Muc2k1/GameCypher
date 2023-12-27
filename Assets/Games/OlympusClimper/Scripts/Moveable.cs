@@ -2,28 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using TriskDemo;
 
 namespace OlympusClimper
 {
-    public class Moveable : MonoBehaviour
+    public class Moveable : MonoBehaviour //will update later
     {
-        [SerializeField] private float moveTime = 1f;
-        private void Start()
+        private float moveTime = 1f;
+        private Tweener animTween; 
+        protected virtual void Start()
         {
             OCEvent.ON_START_MOVE_DOWN += VerticalMove;
+            Setup();
         }
-        private void Update()
-        {
-
-        }
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             OCEvent.ON_START_MOVE_DOWN -= VerticalMove;
         }
+        protected virtual void Setup()
+        {
+            this.moveTime = OCGameManager.Instance.GameConfig.CameraMoveTime;
+        }
         private void VerticalMove(float height)
         {
-            Debug.Log("Lag quas"); //t , s => cong thuc || Dotween => DoMove Ease
             this.transform.DOMoveY(this.transform.position.y - height, moveTime);
+        }
+        public void PlayPunchAnim()
+        {
+            this.animTween = TriskAnimation.PlayPunchAnim(this.animTween, this.transform);
+        }
+        public void PlayScaleTo(float value)
+        {
+            this.animTween = TriskAnimation.PlayScaleTo(this.animTween, this.transform, value);
         }
     }
 }

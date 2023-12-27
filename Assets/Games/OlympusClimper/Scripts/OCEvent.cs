@@ -5,7 +5,7 @@ using System;
 
 namespace OlympusClimper
 {
-    public class OCEvent
+    public class OCEvent //Will change to call ref later
     {
         public static Action<Node /*Step*/> ON_PLAYER_UPDATE_POSITION;
         public static Action<Node /*Step*/> ON_PLAYER_LATE_UPDATE_POSITION;

@@ -12,13 +12,6 @@ namespace OlympusClimper
         {
             OCEvent.ON_PLAYER_UPDATE_POSITION += OnPlayerChangePosition;
         }
-        private void Update()
-        {
-            // if (Input.GetKeyDown(KeyCode.Space))
-            // {
-            //     UpdateQueue();
-            // }
-        }
         private void OnDestroy()
         {
             OCEvent.ON_PLAYER_UPDATE_POSITION -= OnPlayerChangePosition;
@@ -42,19 +35,6 @@ namespace OlympusClimper
                     result = node;
             }
             return result;
-        }
-        private void UpdateQueue()
-        {
-            Node temp = this.nodes[this.nodes.Count - 1];
-            for (int i = (this.nodes.Count - 1); i > 0 ; i--)
-            {
-                nodes[i] = nodes[i - 1];
-            }
-            nodes[0] = temp;
-        }
-        public void BackToPool(Node currentNode)
-        {
-            
         }
     }
 }

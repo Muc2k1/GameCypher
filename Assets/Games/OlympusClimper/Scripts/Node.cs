@@ -6,7 +6,7 @@ using System;
 
 namespace OlympusClimper
 {
-    public class Node : MonoBehaviour
+    public class Node : Moveable
     {
         public enum eNodeType
         {
@@ -27,9 +27,10 @@ namespace OlympusClimper
         [SerializeField] private eNodeState state = eNodeState.New;
         private eNodeType type;
         private NodesPool pool;
-        private void Start()
+        protected override void Start()
         {
             this.pool = GetComponentInParent<NodesPool>();
+            base.Start();
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -51,7 +52,6 @@ namespace OlympusClimper
             if (this.state == eNodeState.New)
                 this.spriteRenderer.color = this.newColor;
         }
-        private bool isChoosen = false;
         public void SetRandomPosition()
         {
             Debug.Log("Moving");
@@ -59,38 +59,15 @@ namespace OlympusClimper
             Vector2 newPos = new Vector2(UnityEngine.Random.Range(-HORIZONTAL_BOUND, HORIZONTAL_BOUND), highestNode.transform.position.y + 3.5f);
             this.transform.position = newPos;
             this.transform.localScale = Vector3.one;
-            isChoosen = false;
             SetState(eNodeState.New);
         }
         public void BackToPool()
         {
-            this.pool.BackToPool(this);
             SetVisible(false);
-            isChoosen = true;
         }
         private void SetVisible(bool isVisible)
         {
             PlayScaleTo(isVisible ? 1f : 0);
-        }
-
-
-
-
-        //Animation
-        private Tweener animTween; 
-        public void PlayPunchAnim()
-        {
-            if (this.animTween != null)
-                this.animTween.Kill();
-
-            this.animTween = this.transform.DOPunchScale(Vector3.one * 0.1f, 0.2f, 2, 0.5f);
-        }
-        public void PlayScaleTo(float value)
-        {
-            if (this.animTween != null)
-                this.animTween.Kill();
-
-            this.animTween = this.transform.DOScale(value, 0.5f);
         }
     }
 }
