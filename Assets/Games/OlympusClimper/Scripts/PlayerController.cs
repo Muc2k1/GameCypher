@@ -20,6 +20,8 @@ namespace OlympusClimper
         private float flySpeed;
         private float rotateSpeed;
         private float flyTimeCounter;
+        private float maxRotateSpeed;
+        private float minDestinationLength;
         private Vector3 rotateVector;
         private eCharacterState state = eCharacterState.Idling;
         private Vector3 rotationDir => (this.forward.position - this.transform.position).normalized;
@@ -45,6 +47,8 @@ namespace OlympusClimper
             this.flySpeed = config.FlySpeed;
             this.rotateSpeed = config.RotateSpeed;
             this.rotateVector = new Vector3(0f, 0f, 1f * this.rotateSpeed);
+            this.maxRotateSpeed = config.MaxRotateSpeed;
+            this.minDestinationLength = config.MinDestinationLength;
         }
         private void StateCheck()
         {
@@ -107,6 +111,18 @@ namespace OlympusClimper
             this.destination.SetActive(true);
             this.CurrentNode = newNode;
             this.transform.position = newNode.transform.position;
+        }
+        public void UpdateLevel(float rotateSpeed, float destinationLength)
+        {
+            this.rotateSpeed = Mathf.Min(rotateSpeed, this.maxRotateSpeed);
+            this.rotateVector = new Vector3(0f, 0f, 1f * this.rotateSpeed);
+            UpdateDestinationLength(destinationLength);
+        }
+        public void UpdateDestinationLength(float value)
+        {
+            value = Mathf.Max(value, this.minDestinationLength);
+            Vector3 currentScale = this.destination.transform.localScale;
+            this.destination.transform.localScale = new Vector3(currentScale.x, value, currentScale.z);
         }
     }
 }

@@ -15,5 +15,12 @@ MonoBehaviour:
   CameraMoveTime: 0.5
   FlyCoolDown: 0.6
   FlySpeed: 8
-  RotateSpeed: 0.5
+  RotateSpeed: 0.25
   DestinationLineLength: 1
+  HolyOccurRate: 0.15
+  DevilOccurRate: 0.15
+  StepToLevelUp: 2
+  RotateSpeedUpEachLevel: 0.05
+  DestinationDecreaseEachLevel: 0.05
+  MaxRotateSpeed: 1.5
+  MinDestinationLength: 0.25

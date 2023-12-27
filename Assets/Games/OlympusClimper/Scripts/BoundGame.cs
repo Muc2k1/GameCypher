@@ -25,7 +25,6 @@ public class BoundGame : MonoBehaviour
         if (col.gameObject.CompareTag("Node"))
         {
             this.choosenNodes.Add(col.gameObject.GetComponent<Node>());
-            Debug.Log("Adding");
         }
     }
     private void UpdateNodes()
@@ -34,6 +33,8 @@ public class BoundGame : MonoBehaviour
         {
             node.SetRandomPosition();
         }
+        int additionalScore = choosenNodes.Count;
         this.choosenNodes.Clear();
+        OCEvent.ON_ADD_SCORE?.Invoke(additionalScore);
     }
 }

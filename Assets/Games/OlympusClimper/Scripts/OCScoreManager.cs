@@ -11,18 +11,22 @@ namespace OlympusClimper
         [SerializeField] private Text scoreTxt;
         float step = 3.5f;
         int score = 0;
+        int streak = 0;
         private void Start()
         {
-            OCEvent.ON_PLAYER_UPDATE_POSITION += OnScore; //Cheat
+            OCEvent.ON_ADD_SCORE += OnScore; //Cheat
         }
         private void OnDestroy()
         {
-            OCEvent.ON_PLAYER_UPDATE_POSITION -= OnScore;
+            OCEvent.ON_ADD_SCORE -= OnScore;
         }
-        private void OnScore(Node _)
+        private void OnScore(int additionalScore)
         {
-            int additionalScore = 1;
             score += additionalScore;
+            if (score > 1)
+            {
+                //
+            }
             this.scoreTxt.text = score.ToString();
         }
     }

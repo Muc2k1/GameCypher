@@ -10,9 +10,18 @@ namespace OlympusClimper
     {
         public enum eNodeType
         {
-            Unknown = -1,
-            Normal,
+            Tiny,
+            Confusion,
+            Faster,
+            HorizontalMove,
+            VerticleMove,
+            Revert = -1,
+            Normal = 0,
+            Score = 1,
             Scope,
+            Slower,
+            Giant,
+            Heal, //decrease difficult level
         }
         public enum eNodeState
         {
