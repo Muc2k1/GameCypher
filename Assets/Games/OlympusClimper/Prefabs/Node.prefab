@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4252127632961813752}
   - {fileID: 4795572014596421289}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,9 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8504121dc35a0604283d6302668042dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oldColor: {r: 0.08219596, g: 0.3679245, b: 0, a: 1}
+  oldColor: {r: 0.6784314, g: 1, b: 0.54509807, a: 1}
   newColor: {r: 0.6784314, g: 1, b: 0.54509807, a: 1}
   spriteRenderer: {fileID: 4795572013439083044}
+  juiceVFX: {fileID: 4448818855908002477}
   state: 0
 --- !u!58 &8805270420542568530
 CircleCollider2D:
@@ -202,5 +204,48 @@ Transform:
   m_Children:
   - {fileID: 4795572013439083045}
   m_Father: {fileID: 4795572013405048036}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7393613312853681418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4795572013405048036}
+    m_Modifications:
+    - target: {fileID: 6567942669476753319, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+      propertyPath: m_Name
+      value: Juice_VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 6567942669476753319, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744689850469947890, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744689850469947890, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744689850469947890, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744689850469947890, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+--- !u!4 &4252127632961813752 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6744689850469947890, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+  m_PrefabInstance: {fileID: 7393613312853681418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4448818855908002477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6567942669476753319, guid: bedfe3f27b2909743bab001a8efe2c15, type: 3}
+  m_PrefabInstance: {fileID: 7393613312853681418}
+  m_PrefabAsset: {fileID: 0}

@@ -8,8 +8,8 @@ namespace OlympusClimper
 {
     public class Moveable : MonoBehaviour //will update later
     {
-        private float moveTime = 1f;
-        private Tweener animTween; 
+        protected float moveTime = 1f;
+        protected Tweener animTween; 
         protected virtual void Start()
         {
             OCEvent.ON_START_MOVE_DOWN += VerticalMove;
@@ -23,13 +23,13 @@ namespace OlympusClimper
         {
             this.moveTime = OCGameManager.Instance.GameConfig.CameraMoveTime;
         }
-        private void VerticalMove(float height)
+        protected virtual void VerticalMove(float height)
         {
             this.transform.DOMoveY(this.transform.position.y - height, moveTime);
         }
         public void PlayPunchAnim()
         {
-            this.animTween = TriskAnimation.PlayPunchAnim(this.animTween, this.transform);
+            this.animTween = TriskAnimation.PlayPunchAnim(this.animTween, this.transform, 0.3f);
         }
         public void PlayScaleTo(float value)
         {

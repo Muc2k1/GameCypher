@@ -33,6 +33,7 @@ namespace OlympusClimper
         [SerializeField] private Color oldColor;
         [SerializeField] private Color newColor;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private GameObject juiceVFX;
         [SerializeField] private eNodeState state = eNodeState.New;
         private eNodeType type;
         private NodesPool pool;
@@ -57,7 +58,10 @@ namespace OlympusClimper
             this.state = newState;
 
             if (this.state == eNodeState.Old)
+            {
+                this.juiceVFX.SetActive(true);
                 this.spriteRenderer.color = this.oldColor;
+            }
             if (this.state == eNodeState.New)
                 this.spriteRenderer.color = this.newColor;
         }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using TriskDemo;
+using DG.Tweening;
 
 namespace OlympusClimper
 {
     public class OCScoreManager : MonoBehaviour
     {
         [SerializeField] private Text scoreTxt;
+        private Tweener animTween;
         float step = 3.5f;
         int score = 0;
         int streak = 0;
@@ -22,12 +25,12 @@ namespace OlympusClimper
         }
         private void OnScore(int additionalScore)
         {
-            score += additionalScore;
-            if (score > 1)
-            {
-                //
-            }
+            if (additionalScore > 1)  streak++;
+            else            streak = 0;
+            
+            score += additionalScore + (streak);
             this.scoreTxt.text = score.ToString();
+            this.animTween = TriskAnimation.PlayPunchAnim(this.animTween, this.transform);
         }
     }
 }

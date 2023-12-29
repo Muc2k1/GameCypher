@@ -55,15 +55,15 @@ namespace OlympusClimper
             switch (this.state)
             {
                 case eCharacterState.Unknown:
-                break;
+                    break;
                 case eCharacterState.Idling:
                     RotateFlyDir();
-                break;
+                    break;
                 case eCharacterState.Flying:
                     Fly();
-                break;
+                    break;
                 case eCharacterState.Landing:
-                break;
+                    break;
             }
         }
         private void SetState(eCharacterState newState)
@@ -74,7 +74,7 @@ namespace OlympusClimper
         {
             if (this.flyTimeCounter > 0)
                 return;
-            
+
             PlayPunchAnim();
             CurrentNode?.BackToPool();
             SetState(eCharacterState.Flying);
@@ -91,7 +91,7 @@ namespace OlympusClimper
         }
         private void DebugInput()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 StartFly();
             }
