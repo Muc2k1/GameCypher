@@ -19,12 +19,14 @@ namespace OlympusClimper
         public Node CurrentNode;
         private float flySpeed;
         private float rotateSpeed;
+        
         private float flyTimeCounter;
         private float maxRotateSpeed;
         private float minDestinationLength;
         private Vector3 rotateVector;
         private eCharacterState state = eCharacterState.Idling;
-        private Vector3 rotationDir => (this.forward.position - this.transform.position).normalized;
+        private Vector3 rotationDir => (this.forward.position - this.transform.position).normalized; //the player's flying direction when player shoot 
+        
         protected override void Start()
         {
             OCEvent.ON_PLAYER_LATE_UPDATE_POSITION += OnUpdatePosition;
@@ -112,10 +114,13 @@ namespace OlympusClimper
             this.CurrentNode = newNode;
             this.transform.position = newNode.transform.position;
         }
-        public void UpdateLevel(float rotateSpeed, float destinationLength)
+        public void UpdateLevel(float rotateSpeed, float destinationLength) //Updating rotation speed and aiming arrow length of character
         {
+            //Changing rotation speed
             this.rotateSpeed = Mathf.Min(rotateSpeed, this.maxRotateSpeed);
             this.rotateVector = new Vector3(0f, 0f, 1f * this.rotateSpeed);
+            
+            //Scaling the length of aiming arrow
             UpdateDestinationLength(destinationLength);
         }
         public void UpdateDestinationLength(float value)

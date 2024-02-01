@@ -22,5 +22,8 @@ namespace OlympusClimper
         public float DestinationDecreaseEachLevel = 0.05f;
         public float MaxRotateSpeed = 1.5f;
         public float MinDestinationLength = 0.25f;
+
+        public float RotateSpeedBuffEachLevel = 0.1f;
+        public float DestinationBuffEachLevel = 0.05f;
     }
 }

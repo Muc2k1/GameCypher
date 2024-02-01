@@ -10,7 +10,7 @@ namespace OlympusClimper
     {
         public enum eNodeType
         {
-            Tiny,
+            Tiny = - 6,
             Confusion,
             Faster,
             HorizontalMove,
@@ -21,7 +21,7 @@ namespace OlympusClimper
             Scope,
             Slower,
             Giant,
-            Heal, //decrease difficult level
+            Heal = 5, //decrease difficult level
         }
         public enum eNodeState
         {
@@ -35,12 +35,13 @@ namespace OlympusClimper
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private GameObject juiceVFX;
         [SerializeField] private eNodeState state = eNodeState.New;
-        private eNodeType type;
+        private eNodeType type; public eNodeType TYPE { get {return type;} }
         private NodesPool pool;
         protected override void Start()
         {
             this.pool = GetComponentInParent<NodesPool>();
             base.Start();
+            SetRandomNodeType();
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -65,7 +66,7 @@ namespace OlympusClimper
             if (this.state == eNodeState.New)
                 this.spriteRenderer.color = this.newColor;
         }
-        public void SetRandomPosition()
+        public void SetRandomPosition() //setting new positon for node after it goes out screenbound 
         {
             Debug.Log("Moving");
             Node highestNode = this.pool.GetTheHighestNode();
@@ -81,6 +82,11 @@ namespace OlympusClimper
         private void SetVisible(bool isVisible)
         {
             PlayScaleTo(isVisible ? 1f : 0);
+        }
+        private void SetRandomNodeType()
+        {
+            int tempValue = UnityEngine.Random.Range(-6, 6); //depend on the value of eNodeType enum
+            type = (eNodeType)tempValue;
         }
     }
 }

@@ -29,11 +29,12 @@ public class BoundGame : MonoBehaviour
     }
     private void UpdateNodes()
     {
-        foreach (Node node in choosenNodes)
+        foreach (Node node in choosenNodes) //Set new position for old node
         {
             node.SetRandomPosition();
         }
-        int additionalScore = choosenNodes.Count;
+
+        int additionalScore = choosenNodes.Count; //it is used for calculating score
         this.choosenNodes.Clear();
         OCEvent.ON_ADD_SCORE?.Invoke(additionalScore);
     }
