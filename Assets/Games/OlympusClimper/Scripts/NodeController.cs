@@ -13,22 +13,24 @@ namespace OlympusClimper
         {
             node = GetComponent<Node>();
         }
-        private void StateCheck()
+        private void Update()
+        {
+            MovementTypeNodeCheck();
+        }
+        private void BuffTypeNodeCheck()
         {
             switch (node.TYPE)
             {
                 case Node.eNodeType.Tiny:
                 case Node.eNodeType.Confusion:
+                    break;
                 case Node.eNodeType.Faster:
                     Faster();
-                    break;
-                case Node.eNodeType.HorizontalMove:
-                    break;
-                case Node.eNodeType.VerticleMove:
                     break; 
                 case Node.eNodeType.Revert:
                 case Node.eNodeType.Score:
                 case Node.eNodeType.Scope:
+                    break;
                 case Node.eNodeType.Slower:
                     Slower();
                     break;
@@ -38,11 +40,23 @@ namespace OlympusClimper
                     break;
             }
         }
+        private void MovementTypeNodeCheck()
+        {
+            switch (node.TYPE)
+            {
+                case Node.eNodeType.HorizontalMove:
+                    break;
+                case Node.eNodeType.VerticleMove:
+                    break; 
+                default:
+                    break;
+            }
+        }
         private void OnTriggerEnter2D(Collider2D col)
         {
             if(col.CompareTag("Player"))
             {
-                StateCheck();
+                BuffTypeNodeCheck();
             }
         }
         private void Faster()

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8504121dc35a0604283d6302668042dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprContainer: {fileID: 11400000, guid: 1f793520a4715b9479c7676aef0c2fcb, type: 2}
   oldColor: {r: 0.6784314, g: 1, b: 0.54509807, a: 1}
   newColor: {r: 0.6784314, g: 1, b: 0.54509807, a: 1}
   spriteRenderer: {fileID: 4795572013439083044}

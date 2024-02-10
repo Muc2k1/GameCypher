@@ -8,6 +8,8 @@ namespace OlympusClimper
 {
     public class Node : Moveable
     {
+        [SerializeField] private OCSpriteContainer sprContainer;
+
         public enum eNodeType
         {
             Tiny = - 6,
@@ -87,6 +89,23 @@ namespace OlympusClimper
         {
             int tempValue = UnityEngine.Random.Range(-6, 6); //depend on the value of eNodeType enum
             type = (eNodeType)tempValue;
+            type = eNodeType.Faster;
+            ChangeNodeSprite();
+        }
+        private void ChangeNodeSprite() //changing the sprite of node depends on it's type
+        {   //color will be used as no sprites are designed
+            switch (type)
+            {
+                case eNodeType.Faster:
+                    this.spriteRenderer.sprite = sprContainer.GetSprite("Faster");
+                    break;
+                case eNodeType.Slower:
+                    this.spriteRenderer.sprite = sprContainer.GetSprite("Slower");  
+                    break;
+                default: 
+                    this.spriteRenderer.sprite = sprContainer.GetSprite("Normal");
+                    break;
+            }
         }
     }
 }
